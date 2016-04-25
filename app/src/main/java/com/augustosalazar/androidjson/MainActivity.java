@@ -46,13 +46,13 @@ public class MainActivity extends ActionBarActivity {
 
     private ProgressDialog pDialog;
     //private static String url = "http://api.androidhive.info/contacts/";
-    private static String url = "http://api.randomuser.me/?results=1&format=json&nat=ES,US";
+    private static String url = "http://api.randomuser.me/?results=1&format=json&nat=ES";
     JSONArray usuarios = null;
     ArrayList<DataSnapshot> listaUsuarios;
     private ListView listView;
     Context context;
 
-    private Firebase myFirebaseRef;
+    public static Firebase myFirebaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,7 +211,17 @@ public class MainActivity extends ActionBarActivity {
                         Map<String, Object> item = new HashMap<>();
 
                         item.put("user", dataEntry);
-                        myFirebaseRef.push().setValue(item);
+
+                        Firebase firebase =  myFirebaseRef.push();
+
+                        myFirebaseRef.child(firebase.getKey()).setValue(item);
+
+
+                        dataEntry.setFirebase(firebase.getKey());
+                        //;setValue(item);
+
+
+
 
 
 

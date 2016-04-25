@@ -59,6 +59,8 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
         dataEntry.setLastName(entry.child("user").child("lastName").getValue().toString());
         dataEntry.setGender(entry.child("user").child("gender").getValue().toString());
         dataEntry.setPicture(entry.child("user").child("picture").getValue().toString());
+        dataEntry.setFirebase(entry.getKey());
+
 
         convertView.setTag(dataEntry);
 

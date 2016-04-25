@@ -6,7 +6,7 @@
     <string name="title_activity_detail">DetailActivity</string>
 
     <string-array name="genders">
-        <item>Masculino</item>
-        <item>Femenino</item>
+        <item>male</item>
+        <item>female</item>
     </string-array>
 </resources>

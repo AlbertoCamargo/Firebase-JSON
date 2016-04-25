@@ -1,5 +1,6 @@
 package com.augustosalazar.androidjson;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.firebase.client.Firebase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class EditActivity extends ActionBarActivity {
 
     // Array Adapter for genders
@@ -16,17 +22,28 @@ public class EditActivity extends ActionBarActivity {
     private Spinner gender;
     private EditText name,lastName;
 
+    private DataEntry mDataEntry;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        Intent i = getIntent();
+        mDataEntry = (DataEntry) i.getSerializableExtra("data");
+
         name = (EditText) findViewById(R.id.editName);
         lastName = (EditText) findViewById(R.id.lastName);
         gender = (Spinner) findViewById(R.id.editGender);
 
-
         configureSpinner();
+
+        name.setText(mDataEntry.getFistName());
+        lastName.setText(mDataEntry.getLastName());
+        gender.setSelection(adapter.getPosition(mDataEntry.getGender()), true);
+        name.setText(mDataEntry.getFistName());
+
+
 
     }
 
@@ -43,10 +60,31 @@ public class EditActivity extends ActionBarActivity {
     }
 
     public void edit(View view) {
+        String nameAttr = name.getText().toString();
+        String lastNameAttr = lastName.getText().toString();
+        String genderAttr = gender.getSelectedItem().toString();
 
-        Button edit = (Button) findViewById(R.id.delete);
-        Log.d("TAGGGGG", edit.toString());
+        mDataEntry.setFistName(nameAttr);
+        mDataEntry.setLastName(lastNameAttr);
+        mDataEntry.setGender(genderAttr);
+
+        Map<String, Object> item = new HashMap<>();
+
+        item.put("user", mDataEntry);
+        MainActivity.myFirebaseRef.child(mDataEntry.getFirebase()).setValue(item);
 
 
+
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent i = new Intent(EditActivity.this, DetailActivity.class);
+        i.putExtra("data", mDataEntry);
+        startActivity(i);
+        //super.onBackPressed();
     }
 }

@@ -1,6 +1,9 @@
 package com.augustosalazar.androidjson;
 
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
@@ -11,17 +14,19 @@ public class DataEntry implements Serializable {
     private String lastName;
     private String email;
     private String picture;
+    private String firebase;
 
     public DataEntry() {
 
     }
 
-    public DataEntry(String gender, String fistName, String lastName, String email, String picture) {
+    public DataEntry(String gender, String fistName, String lastName, String email, String picture, String firebase) {
         this.gender = gender;
         this.fistName = fistName;
         this.lastName = lastName;
         this.email = email;
         this.picture = picture;
+        this.firebase = firebase;
     }
 
     public String getGender() {
@@ -62,5 +67,13 @@ public class DataEntry implements Serializable {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getFirebase() {
+        return firebase;
+    }
+
+    public void setFirebase(String firebase) {
+        this.firebase = firebase;
     }
 }

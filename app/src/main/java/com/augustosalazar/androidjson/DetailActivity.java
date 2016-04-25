@@ -70,7 +70,7 @@ public class DetailActivity extends ActionBarActivity {
 
     public void edit(View view) {
         Intent i = new Intent(DetailActivity.this, EditActivity.class);
-        //i.putExtra("data", (DataEntry) view.getTag());
+        i.putExtra("data",  mDataEntry);
         startActivity(i);
     }
 
@@ -99,4 +99,10 @@ public class DetailActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(DetailActivity.this, MainActivity.class);
+
+        startActivity(i);
+    }
 }
